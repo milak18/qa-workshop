@@ -45,6 +45,19 @@ describe('App', () => {
     }
   });
 
+  it('renders a checkbox for each todo using data-testid', async () => {
+    render(<App />);
+    await waitFor(() => {
+      expect(screen.getByTestId('todo-list')).toBeInTheDocument();
+    });
+
+    for (let i = 1; i <= 10; i++) {
+      const checkbox = screen.getByTestId(`todo-checkbox-${i}`);
+      expect(checkbox).toBeInTheDocument();
+      expect(checkbox).toHaveAttribute('type', 'checkbox');
+    }
+  });
+
   it('toggles a checkbox when clicked', async () => {
     const user = userEvent.setup();
     render(<App />);
